@@ -192,3 +192,54 @@ menggunakan axs[1, 1].set_title('Mean Filtered'). <br>
 
 Dengan mengatur ruang antara subplot menggunakan plt.subplots_adjust(hspace=0.5), kita memastikan bahwa judul-judul gambar 
 tidak saling tumpang tindih, sehingga plot keseluruhan menjadi lebih mudah dibaca. <br>
+
+---
+# TEORI PENDUKUNG
+
+1. OpenCV dan Pembacaan Gambar <br>
+Open Source Computer Vision Library (OpenCV) adalah pustaka perangkat lunak yang dirancang untuk aplikasi visi
+komputer dan pembelajaran mesin. OpenCV menyediakan berbagai fungsi untuk memanipulasi gambar dan video, termasuk
+pembacaan, penulisan, dan pemrosesan gambar. Dalam penelitian ini, fungsi cv2.imread digunakan untuk membaca gambar
+dari file dan menyimpannya sebagai array NumPy. Array ini memungkinkan manipulasi numerik yang efisien terhadap gambar.
+Menurut Bradski dan Kaehler (2008), OpenCV merupakan alat yang sangat efektif dalam pemrosesan gambar karena kemampuannya
+yang luas dan performanya yang tinggi. <br>
+
+2. Konversi Ruang Warna <br>
+Ruang warna adalah model matematika yang menggambarkan cara warna diwakili dalam gambar digital.
+Gambar yang dibaca oleh OpenCV secara default berada dalam format BGR (Blue, Green, Red), sementara
+banyak pustaka pemrosesan gambar lain seperti Matplotlib menggunakan format RGB (Red, Green, Blue).
+Untuk mengkonversi gambar dari BGR ke RGB, digunakan fungsi cv2.cvtColor. Menurut Gonzalez dan Woods (2018),
+konversi ruang warna adalah langkah penting dalam memastikan gambar ditampilkan dengan warna yang benar saat
+menggunakan alat visualisasi yang berbeda. <br>
+
+3. Filter Median <br>
+Filter median adalah teknik penyaringan non-linear yang digunakan untuk menghilangkan noise dari gambar.
+ Filter ini bekerja dengan menggantikan setiap piksel dengan median dari piksel-piksel tetangganya. Fungsi
+ cv2.medianBlur digunakan untuk menerapkan filter median pada gambar dengan ukuran kernel yang ditentukan.
+ Menurut Jain (1989), filter median sangat efektif dalam menghilangkan noise sementara tetap mempertahankan
+tepi, menjadikannya pilihan yang baik untuk pra-pemrosesan gambar dalam berbagai aplikasi visi komputer. <br>
+
+4. Visualisasi Gambar dengan Matplotlib <br>
+Matplotlib adalah pustaka Python untuk membuat visualisasi data 2D, termasuk gambar. Fungsi plt.subplots
+digunakan untuk membuat beberapa plot dalam satu figur, memungkinkan perbandingan visual yang mudah antara
+gambar asli dan gambar yang telah difilter. Fungsi imshow digunakan untuk menampilkan gambar, dengan kolormap
+'gray' digunakan untuk gambar skala abu-abu. Menurut Hunter (2007), Matplotlib adalah alat yang sangat
+fleksibel dan kuat untuk visualisasi data, termasuk dalam pemrosesan gambar. <br>
+
+5. Konversi ke Skala Abu-abu <br>
+Konversi gambar berwarna ke skala abu-abu adalah langkah penting dalam banyak algoritma pemrosesan gambar.
+ Gambar skala abu-abu hanya memiliki satu saluran warna yang mewakili intensitas cahaya, sehingga lebih
+sederhana dan lebih cepat untuk diproses dibandingkan dengan gambar berwarna. Fungsi cv2.cvtColor digunakan
+untuk mengonversi gambar ke skala abu-abu. <nr>
+
+6. Filter rata-rata (median filter) <br>
+Filter rata-rata adalah filter linear yang digunakan untuk menghaluskan gambar dengan menghitung rata-rata
+dari piksel-piksel tetangganya. Filter ini efektif dalam mengurangi noise namun dapat mengaburkan tepi.
+Dalam penelitian ini, filter rata-rata diterapkan secara manual dengan menghitung jumlah nilai piksel
+dalam jendela 3x3 di sekitar setiap piksel dan membaginya dengan 9. <br>
+
+7. Visualisasi Filtering <br>
+Visualisasi efek penyaringan sangat penting untuk memahami dampak dari berbagai teknik pemrosesan gambar.
+Empat gambar berbeda ditampilkan dalam satu plot menggunakan Matplotlib: gambar asli berwarna, gambar hasil penyaringan median,
+gambar skala abu-abu asli, dan gambar hasil penyaringan rata-rata. Dengan mengatur ruang antara subplot menggunakan plt.subplots_adjust,
+visualisasi menjadi lebih jelas dan mudah dibaca. <br>
