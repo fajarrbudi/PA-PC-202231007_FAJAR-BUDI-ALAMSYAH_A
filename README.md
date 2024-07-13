@@ -100,16 +100,95 @@ gray_image.copy().astype(float), yang mungkin diperlukan untuk operasi pemrosesa
 Dimensi gambar skala abu-abu disimpan dalam variabel m1 dan n1 dengan menggunakan copy_gray.shape. Kemudian, kita membuat 
 sebuah array kosong mean_filter dengan dimensi yang sama, yang akan digunakan untuk menyimpan hasil dari operasi filter rata-rata di langkah-langkah berikutnya. <br>
 
-```
 
-```
 Pada tahap ini, kita menerapkan filter rata-rata pada gambar skala abu-abu menggunakan operasi konvolusi. 
 Filter rata-rata bekerja dengan menghitung rata-rata nilai piksel di sekitar setiap piksel dalam jendela 3x3. 
-Implementasi manual dari filter ini dilakukan dengan menggunakan dua loop for yang melintasi setiap piksel dalam gambar.
+Implementasi manual dari filter ini dilakukan dengan menggunakan dua loop for yang melintasi setiap piksel dalam gambar. <br>
+
+1. Looping Melintasi Setiap Piksel: <br>
+Dua loop for digunakan untuk melintasi setiap piksel dalam gambar, kecuali tepi luar, karena kita memerlukan piksel tetangga di sekitar setiap piksel yang diproses. <br>
+```
+for baris in range (0, m1-1):
+    for kolom in range (0, n1-1):
+```
+
+2. Menghitung Jumlah Nilai Piksel Tetangga: <br>
+Untuk setiap piksel pada posisi (a1, b1), kita menghitung jumlah dari nilai piksel di sekitar dalam jendela 3x3. <br>
+```
+a1 = baris
+b1 = kolom
+jumlah = copy_gray[a1-1, b1-1] + copy_gray[a1-1, b1] + copy_gray[a1-1, b1+1] +\
+    copy_gray[a1, b1-1] + copy_gray[a1, b1] + copy_gray[a1, b1+1] +\
+    copy_gray[a1+1, b1-1] + copy_gray[a1+1, b1] + copy_gray[a1+1, b1+1]
+```
+
+3. Menghitung Rata-Rata: <br>
+Setelah menghitung jumlah dari nilai-nilai piksel tetangga, nilai rata-rata dihitung dengan membagi jumlah
+tersebut dengan 9 (karena ada 9 piksel dalam jendela 3x3). Nilai rata-rata ini kemudian disimpan dalam array
+mean_filter pada posisi yang sama. <br>
+```
+mean_filter[a1, b1] = 1/9 * jumlah
+```
+<br>
 
 
+Hasil dari penerapan filter rata-rata ini adalah citra yang lebih halus dan lebih sedikit noise, 
+karena filter rata-rata cenderung mengurangi variasi intensitas piksel yang tajam dengan menghaluskan perubahan antara piksel-piksel tetangga. <br>
 
+```
+fig, axis = plt.subplots(1, 2, figsize=(10,10))
+ax = axis.ravel()
 
+ax[0].imshow(gray_image, cmap='gray')
+ax[0].set_title('Original Image')
 
+ax[1].imshow(mean_filter, cmap='gray')
+ax[1].set_title('Mean Filtered')
+plt.show()
+```
 
+Pada tahap terakhir dari persiapan citra ini, kita akan menampilkan gambar asli dan gambar hasil penyaringan rata-rata berdampingan untuk memvisualisasikan 
+efek dari operasi penyaringan. Dengan menggunakan Matplotlib, kita membuat subplot dengan dua kolom dan satu baris menggunakan fig, axis = plt.subplots(1, 2, 
+figsize=(10, 10)). Variabel ax digunakan untuk meratakan array sumbu, sehingga mudah diakses dengan indeks. <br>
 
+Gambar asli dalam skala abu-abu ditampilkan di subplot pertama menggunakan ax[0].imshow(gray_image, cmap='gray') dan diberi judul "Original Image" 
+dengan ax[0].set_title('Original Image'). Gambar hasil penyaringan rata-rata ditampilkan di subplot kedua menggunakan ax[1].imshow(mean_filter, cmap='gray') 
+dan diberi judul "Mean Filtered" dengan ax[1].set_title('Mean Filtered'). Terakhir, plt.show() digunakan untuk menampilkan plot tersebut. Langkah ini memungkinkan 
+kita untuk dengan jelas melihat perbedaan antara citra asli dan citra yang telah mengalami penyaringan rata-rata, sehingga membantu dalam analisis dan pemahaman 
+efek dari teknik penyaringan yang digunakan. <br>
+
+## MENAMPILKAN SEMUA GAMBAR
+```
+ig, axs = plt.subplots(2, 2, figsize=(15, 10))
+# Menampilkan gambar di setiap subplot
+axs[0, 0].imshow(img)
+axs[0, 0].set_title('Citra Asli')
+
+axs[0, 1].imshow(img_median_after)
+axs[0, 1].set_title('Median FIltered')
+
+axs[1, 0].imshow(gray_image, cmap='gray')
+axs[1, 0].set_title('Original Imgae')
+
+axs[1, 1].imshow(mean_filter, cmap='gray')
+axs[1, 1].set_title('Mean Filtered')
+
+plt.subplots_adjust(hspace=0.5)
+```
+
+Kemudian  akan menampilkan empat gambar berbeda berdampingan dalam satu plot untuk memvisualisasikan berbagai 
+operasi penyaringan dan konversi yang telah dilakukan. Dengan menggunakan Matplotlib, kita membuat subplot dengan 
+dua baris dan dua kolom menggunakan fig, axs = plt.subplots(2, 2, figsize=(15, 10)). Gambar-gambar ini akan ditampilkan 
+di setiap subplot untuk memudahkan perbandingan. <br>
+
+Gambar asli berwarna ditampilkan di subplot pertama dengan axs[0, 0].imshow(img) dan diberi judul "Citra Asli" menggunakan 
+axs[0, 0].set_title('Citra Asli'). Gambar hasil penyaringan median ditampilkan di subplot kedua dengan axs[0, 1].imshow(img_median_after) 
+dan diberi judul "Median Filtered" menggunakan axs[0, 1].set_title('Median Filtered'). <br>
+
+Selanjutnya, gambar skala abu-abu asli ditampilkan di subplot ketiga dengan axs[1, 0].imshow(gray_image, cmap='gray') dan diberi 
+judul "Original Image" menggunakan axs[1, 0].set_title('Original Image'). Terakhir, gambar hasil penyaringan rata-rata 
+ditampilkan di subplot keempat dengan axs[1, 1].imshow(mean_filter, cmap='gray') dan diberi judul "Mean Filtered" 
+menggunakan axs[1, 1].set_title('Mean Filtered'). <br>
+
+Dengan mengatur ruang antara subplot menggunakan plt.subplots_adjust(hspace=0.5), kita memastikan bahwa judul-judul gambar 
+tidak saling tumpang tindih, sehingga plot keseluruhan menjadi lebih mudah dibaca. <br>
