@@ -1,9 +1,9 @@
 # PA-PC-202231007_FAJAR-BUDI-ALAMSYAH_A
 
-Nama  : Fajar Budi Alamsyah
-NIM  : 202231007
-Kelas : A
-Project : Filtering
+Nama  : Fajar Budi Alamsyah <br>
+NIM  : 202231007 <br>
+Kelas : A <br>
+Project : Filtering <br>
 
 ---
 # TAHAPAN MENGOLAH CITRA
